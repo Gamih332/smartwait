@@ -5,11 +5,7 @@
   <title>الانتظار الذكي للمواعيد</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -17,25 +13,16 @@
       background-size: cover;
     }
 
-    iframe.header, iframe.footer {
+    #header, #footer {
       width: 100%;
-      border: none;
-    }
-
-    iframe.header {
-      height: 80px;
-    }
-
-    iframe.footer {
-      height: 70px;
     }
 
     .main {
       text-align: center;
       background-color: rgba(255, 255, 255, 0.85);
       margin: 120px auto 90px;
-      max-width: 700px;
-      padding: 40px 30px;
+      max-width: 600px;
+      padding: 40px 20px;
       border-radius: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
@@ -43,14 +30,13 @@
     .main h1 {
       color: #6a0dad;
       font-size: 32px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .main p {
       font-size: 18px;
       color: #444;
       margin-bottom: 30px;
-      line-height: 1.8;
     }
 
     .start-btn {
@@ -61,7 +47,6 @@
       color: white;
       font-size: 18px;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
     .start-btn:hover {
@@ -71,25 +56,31 @@
 </head>
 <body>
 
-  <!-- ✅ الشريط العلوي -->
-  <iframe class="header" src="header.html"></iframe>
+  <!-- ✅ تضمين الهيدر -->
+  <div id="header"></div>
 
-  <!-- ✅ المحتوى الرئيسي -->
+  <!-- ✅ محتوى الصفحة -->
   <div class="main">
     <h1>مرحبًا بك في نظام الانتظار الذكي</h1>
-    <p>
-      يساعدك هذا النظام على معرفة دورك في قائمة الانتظار،<br>
-      الوقت المتوقع لدخولك، وعدد المرضى قبلك بكل سهولة من أي مكان.
-    </p>
+    <p>وفر وقتك وانتظر دورك بذكاء وسهولة.</p>
     <button class="start-btn" onclick="start()">ابدأ الآن</button>
   </div>
 
-  <!-- ✅ الشريط السفلي -->
-  <iframe class="footer" src="footer.html"></iframe>
+  <!-- ✅ تضمين الفوتر -->
+  <div id="footer"></div>
 
+  <!-- ✅ سكربت لتضمين الهيدر والفوتر -->
   <script>
+    fetch('header.html').then(res => res.text()).then(data => {
+      document.getElementById('header').innerHTML = data;
+    });
+
+    fetch('footer.html').then(res => res.text()).then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+
     function start() {
-      alert("سيتم توجيهك إلى صفحة التسجيل أو الحجز قريبًا...");
+      window.location.href = "register.html";
     }
   </script>
 </body>
