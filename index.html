@@ -19,7 +19,7 @@
 
     .main {
       text-align: center;
-      background-color: rgba(255, 255, 255, 0.85);
+      background-color: rgba(202, 223, 243, 0.659);
       margin: 120px auto 90px;
       max-width: 600px;
       padding: 40px 20px;
@@ -36,7 +36,14 @@
     .main p {
       font-size: 18px;
       color: #444;
+      margin-bottom: 20px;
+    }
+
+    .main .extra-info {
+      font-size: 17px;
+      color: #333;
       margin-bottom: 30px;
+      line-height: 1.6;
     }
 
     .start-btn {
@@ -44,7 +51,7 @@
       background: linear-gradient(to left, #6a0dad, #87CEFA);
       border: none;
       border-radius: 8px;
-      color: white;
+      color: rgb(227, 192, 246);
       font-size: 18px;
       cursor: pointer;
     }
@@ -63,6 +70,10 @@
   <div class="main">
     <h1>مرحبًا بك في نظام الانتظار الذكي</h1>
     <p>وفر وقتك وانتظر دورك بذكاء وسهولة.</p>
+    <div class="extra-info">
+      يساعدك هذا النظام على معرفة دورك في قائمة الانتظار<br>
+      والوقت المتوقع لدخولك وعدد المرضى بكل سهولة.
+    </div>
     <button class="start-btn" onclick="start()">ابدأ الآن</button>
   </div>
 
