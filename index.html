@@ -5,10 +5,21 @@
   <title>الانتظار الذكي للمواعيد</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       background: url('mg4.jpg') no-repeat center center fixed;
       background-size: cover;
     }
@@ -18,6 +29,7 @@
     }
 
     .main {
+      flex: 1; /* يجعل المحتوى يتمدد ويدفع الفوتر لأسفل */
       text-align: center;
       background-color: rgba(202, 223, 243, 0.659);
       margin: 120px auto 90px;
@@ -63,10 +75,10 @@
 </head>
 <body>
 
-  <!-- ✅ تضمين الهيدر -->
+  <!-- ✅ الهيدر -->
   <div id="header"></div>
 
-  <!-- ✅ محتوى الصفحة -->
+  <!-- ✅ المحتوى -->
   <div class="main">
     <h1>مرحبًا بك في نظام الانتظار الذكي</h1>
     <p>وفر وقتك وانتظر دورك بذكاء وسهولة.</p>
@@ -77,18 +89,22 @@
     <button class="start-btn" onclick="start()">ابدأ الآن</button>
   </div>
 
-  <!-- ✅ تضمين الفوتر -->
+  <!-- ✅ الفوتر -->
   <div id="footer"></div>
 
-  <!-- ✅ سكربت لتضمين الهيدر والفوتر -->
+  <!-- ✅ استدعاء ملفات الهيدر والفوتر -->
   <script>
-    fetch('header.html').then(res => res.text()).then(data => {
-      document.getElementById('header').innerHTML = data;
-    });
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      });
 
-    fetch('footer.html').then(res => res.text()).then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      });
 
     function start() {
       window.location.href = "register.html";
