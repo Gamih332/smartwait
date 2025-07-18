@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>المواعيد</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>قائمة المواعيد</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
       font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       background: url('mg4.jpg') no-repeat center center fixed;
       background-size: cover;
-      margin: 0;
     }
 
-    #header, #footer { width: 100%; }
+    #header, #footer {
+      width: 100%;
+    }
 
     .main {
-      background-color: rgba(255, 255, 255, 0.9);
-      max-width: 600px;
-      margin: 120px auto 90px;
-      padding: 30px;
-      border-radius: 15px;
+      flex: 1;
       text-align: center;
+      background-color: rgba(202, 223, 243, 0.659);
+      margin: 120px auto 90px;
+      max-width: 600px;
+      padding: 40px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    h2 {
+    .main h1 {
       color: #6a0dad;
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .main p {
+      font-size: 18px;
+      color: #444;
       margin-bottom: 20px;
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      font-size: 18px;
-    }
-
-    li {
-      background: #f0f0f0;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 8px;
+    .extra-info {
+      font-size: 17px;
+      color: #333;
+      margin-bottom: 30px;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -47,25 +60,33 @@
   <div id="header"></div>
 
   <div class="main">
-    <h2>المواعيد المتاحة</h2>
-    <ul>
-      <li>الأحد - 10:00 صباحًا</li>
-      <li>الإثنين - 11:30 صباحًا</li>
-      <li>الثلاثاء - 2:00 مساءً</li>
-      <li>الخميس - 9:00 صباحًا</li>
-    </ul>
+    <h1>المواعيد المتاحة</h1>
+    <p>إليك قائمة بالمواعيد الحالية.</p>
+    <div class="extra-info">اختر الموعد المناسب واضغط على زر التسجيل.</div>
   </div>
 
   <div id="footer"></div>
 
   <script>
-    fetch('header.html').then(res => res.text()).then(data => {
-      document.getElementById('header').innerHTML = data;
-    });
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
 
-    fetch('footer.html').then(res => res.text()).then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
+        const scripts = document.getElementById('header').querySelectorAll("script");
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement("script");
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+      });
+
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      });
   </script>
+
 </body>
 </html>
