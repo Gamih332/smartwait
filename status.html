@@ -5,6 +5,8 @@
   <title>صحة حالة الانتظار</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom, #e0eafc, #cfdef3);
@@ -12,9 +14,13 @@
       padding: 0;
     }
 
+    #header, #footer {
+      width: 100%;
+    }
+
     .main {
       max-width: 600px;
-      margin: 100px auto;
+      margin: 120px auto 90px;
       background: white;
       padding: 30px;
       border-radius: 20px;
@@ -50,14 +56,15 @@
     #result {
       margin-top: 20px;
       font-size: 18px;
-      color: green;
     }
   </style>
 </head>
 <body>
 
+  <!-- ✅ الهيدر -->
   <div id="header"></div>
 
+  <!-- ✅ المحتوى -->
   <div class="main">
     <h1>استعلام عن حالة الانتظار</h1>
     <input type="text" id="userID" placeholder="أدخل رقم الهوية">
@@ -66,26 +73,42 @@
     <div id="result"></div>
   </div>
 
+  <!-- ✅ الفوتر -->
   <div id="footer"></div>
 
+  <!-- ✅ تحميل الهيدر والفوتر وتشغيل سكربت القائمة -->
   <script>
-    // إدراج الهيدر والفوتر
-    fetch("header.html").then(res => res.text()).then(data => {
-      document.getElementById("header").innerHTML = data;
-    });
+    // إدراج الهيدر
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("header").innerHTML = data;
 
-    fetch("footer.html").then(res => res.text()).then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
+        // إعادة تشغيل سكربت زر البرقر
+        const script = document.getElementById("header").querySelector("script");
+        if (script) {
+          const newScript = document.createElement("script");
+          newScript.textContent = script.textContent;
+          document.body.appendChild(newScript);
+        }
+      });
 
+    // إدراج الفوتر
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer").innerHTML = data;
+      });
+
+    // دالة التحقق
     function checkStatus() {
-      let id = document.getElementById("userID").value;
-      let result = document.getElementById("result");
+      const id = document.getElementById("userID").value;
+      const result = document.getElementById("result");
+
       if (id === "") {
         result.textContent = "يرجى إدخال رقم الهوية";
         result.style.color = "red";
       } else {
-        // محاكاة نتيجة التحقق
         result.textContent = "حالتك: قيد الانتظار";
         result.style.color = "green";
       }
