@@ -5,13 +5,23 @@
   <title>صحة حالة الانتظار</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #e0eafc, #cfdef3);
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: url('mg4.jpg') no-repeat center center fixed;
+      background-size: cover;
     }
 
     #header, #footer {
@@ -19,9 +29,10 @@
     }
 
     .main {
+      flex: 1;
       max-width: 600px;
       margin: 120px auto 90px;
-      background: white;
+      background-color: rgba(202, 218, 241, 0.682);
       padding: 30px;
       border-radius: 20px;
       text-align: center;
@@ -47,7 +58,7 @@
       padding: 10px 20px;
       font-size: 16px;
       background-color: #6a0dad;
-      color: white;
+      color: hsla(210, 54%, 76%, 0.696);
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -76,36 +87,37 @@
   <!-- ✅ الفوتر -->
   <div id="footer"></div>
 
-  <!-- ✅ تحميل الهيدر والفوتر وتشغيل سكربت القائمة -->
+  <!-- ✅ السكربت لتحميل الهيدر والفوتر وتفعيل القائمة -->
   <script>
-    // إدراج الهيدر
+    // تحميل الهيدر وتفعيل سكربت البرقر
     fetch("header.html")
       .then(res => res.text())
       .then(data => {
-        document.getElementById("header").innerHTML = data;
+        const headerDiv = document.getElementById("header");
+        headerDiv.innerHTML = data;
 
-        // إعادة تشغيل سكربت زر البرقر
-        const script = document.getElementById("header").querySelector("script");
-        if (script) {
+        // استخراج سكربت البرقر من داخل الهيدر وتشغيله
+        const scripts = headerDiv.querySelectorAll("script");
+        scripts.forEach(oldScript => {
           const newScript = document.createElement("script");
-          newScript.textContent = script.textContent;
+          newScript.textContent = oldScript.textContent;
           document.body.appendChild(newScript);
-        }
+        });
       });
 
-    // إدراج الفوتر
+    // تحميل الفوتر
     fetch("footer.html")
       .then(res => res.text())
       .then(data => {
         document.getElementById("footer").innerHTML = data;
       });
 
-    // دالة التحقق
+    // دالة تحقق حالة الانتظار
     function checkStatus() {
       const id = document.getElementById("userID").value;
       const result = document.getElementById("result");
 
-      if (id === "") {
+      if (id.trim() === "") {
         result.textContent = "يرجى إدخال رقم الهوية";
         result.style.color = "red";
       } else {
