@@ -34,8 +34,8 @@
       text-align: center;
       background-color: rgba(255, 255, 255, 0.85);
       margin: 120px auto 90px;
-      max-width: 600px;
-      padding: 40px 20px;
+      max-width: 700px;
+      padding: 40px 30px;
       border-radius: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
@@ -43,13 +43,14 @@
     .main h1 {
       color: #6a0dad;
       font-size: 32px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .main p {
       font-size: 18px;
       color: #444;
       margin-bottom: 30px;
+      line-height: 1.8;
     }
 
     .start-btn {
@@ -70,18 +71,21 @@
 </head>
 <body>
 
-  <!-- ✅ تضمين الشريط العلوي -->
-  <iframe class="header" src="Header.html"></iframe>
+  <!-- ✅ الشريط العلوي -->
+  <iframe class="header" src="header.html"></iframe>
 
   <!-- ✅ المحتوى الرئيسي -->
   <div class="main">
     <h1>مرحبًا بك في نظام الانتظار الذكي</h1>
-    <p>وفر وقتك وانتظر دورك بذكاء وسهولة.</p>
+    <p>
+      يساعدك هذا النظام على معرفة دورك في قائمة الانتظار،<br>
+      الوقت المتوقع لدخولك، وعدد المرضى قبلك بكل سهولة من أي مكان.
+    </p>
     <button class="start-btn" onclick="start()">ابدأ الآن</button>
   </div>
 
-  <!-- ✅ تضمين الشريط السفلي -->
-  <iframe class="footer" src="Footer.html"></iframe>
+  <!-- ✅ الشريط السفلي -->
+  <iframe class="footer" src="footer.html"></iframe>
 
   <script>
     function start() {
