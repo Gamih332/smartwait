@@ -70,6 +70,25 @@
       background: linear-gradient(to left, #5c0aa3, #75b4e9);
     }
 
+    .message-box {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .message-box.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .message-box.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
     header {
       background: linear-gradient(to left, #6a0dad, #87CEFA);
       padding: 15px 30px;
@@ -160,6 +179,8 @@
       <textarea id="message" rows="5" placeholder="اكتب رسالتك هنا" required></textarea>
 
       <button type="submit">إرسال</button>
+
+      <div id="result" class="message-box"></div>
     </form>
   </div>
 
@@ -167,7 +188,6 @@
     جميع الحقوق محفوظة &copy; 2025 - الانتظار الذكي
   </footer>
 
-  <!-- Firebase تهيئة -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBnJGsLfBMrEJeDtG8Xx6n18fGbmyh6QaU",
@@ -187,8 +207,9 @@
       const phone = document.getElementById("phone").value;
       const subject = document.getElementById("subject").value;
       const message = document.getElementById("message").value;
+      const resultBox = document.getElementById("result");
 
-      db.collection("contacts").add({
+      db.collection("messages").add({
         name: name,
         phone: phone,
         subject: subject,
@@ -196,17 +217,20 @@
         createdAt: new Date()
       })
       .then(() => {
-        alert("✅ تم إرسال رسالتك بنجاح!");
+        resultBox.className = "message-box success";
+        resultBox.innerText = "✅ تم إرسال رسالتك بنجاح!";
+        resultBox.style.display = "block";
         document.querySelector("form").reset();
       })
       .catch((error) => {
-        alert("❌ حدث خطأ أثناء الإرسال: " + error.message);
+        resultBox.className = "message-box error";
+        resultBox.innerText = "❌ حدث خطأ أثناء الإرسال: " + error.message;
+        resultBox.style.display = "block";
       });
     }
 
     function toggleMenu() {
-      const nav = document.getElementById("nav-menu");
-      nav.classList.toggle("active");
+      document.getElementById("nav-menu").classList.toggle("active");
     }
   </script>
 
