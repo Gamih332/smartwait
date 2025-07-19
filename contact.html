@@ -4,17 +4,11 @@
   <meta charset="UTF-8">
   <title>تواصل معنا</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- خط عصري -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* === تنسيق عام === */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* التنسيقات كما هي بدون تغيير كبير */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Cairo', sans-serif;
@@ -34,7 +28,6 @@
       font-weight: 700;
     }
 
-    /* === تنسيق الفورم === */
     form {
       max-width: 500px;
       margin: auto;
@@ -50,8 +43,7 @@
       display: block;
     }
 
-    form input,
-    form textarea {
+    form input, form textarea {
       width: 100%;
       padding: 12px;
       margin-bottom: 18px;
@@ -77,7 +69,6 @@
       background: linear-gradient(to left, #5c0aa3, #75b4e9);
     }
 
-    /* === تنسيق الهيدر === */
     header {
       background: linear-gradient(to left, #6a0dad, #87CEFA);
       padding: 15px 30px;
@@ -85,23 +76,12 @@
       justify-content: space-between;
       align-items: center;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 1000;
-      font-family: 'Cairo', sans-serif;
     }
 
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      color: white;
-    }
-
-    .nav {
-      display: flex;
-      gap: 20px;
-    }
+    .logo { font-size: 22px; font-weight: bold; color: white; }
+    .nav { display: flex; gap: 20px; }
 
     .nav a {
       color: rgb(223, 206, 244);
@@ -109,9 +89,7 @@
       font-size: 18px;
     }
 
-    .nav a:hover {
-      text-decoration: underline;
-    }
+    .nav a:hover { text-decoration: underline; }
 
     .burger {
       display: none;
@@ -135,16 +113,10 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       }
 
-      .nav.active {
-        display: flex;
-      }
-
-      .burger {
-        display: block;
-      }
+      .nav.active { display: flex; }
+      .burger { display: block; }
     }
 
-    /* === تنسيق الفوتر === */
     footer {
       background: linear-gradient(to left, #6a0dad, #87CEFA);
       color: rgba(218, 203, 237, 0.474);
@@ -175,18 +147,19 @@
   <div class="content">
     <h2>نموذج التواصل</h2>
 
-    <form action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT_HERE" method="POST">
+    <!-- 🟢 النموذج الجديد المرتبط بـ Firebase -->
+    <form onsubmit="event.preventDefault(); sendContactForm();">
       <label>الاسم الكامل:</label>
-      <input type="text" name="name" placeholder="اكتب اسمك" required>
+      <input type="text" id="name" placeholder="اكتب اسمك" required>
 
       <label>رقم الجوال:</label>
-      <input type="tel" name="phone" placeholder="05XXXXXXXX" required>
+      <input type="tel" id="phone" placeholder="05XXXXXXXX" required>
 
       <label>عنوان الرسالة:</label>
-      <input type="text" name="subject" placeholder="عنوان مختصر" required>
+      <input type="text" id="subject" placeholder="عنوان مختصر" required>
 
       <label>الرسالة:</label>
-      <textarea name="message" rows="5" placeholder="اكتب رسالتك هنا" required></textarea>
+      <textarea id="message" rows="5" placeholder="اكتب رسالتك هنا" required></textarea>
 
       <button type="submit">إرسال</button>
     </form>
@@ -197,12 +170,55 @@
     جميع الحقوق محفوظة &copy; 2025 - الانتظار الذكي
   </footer>
 
-  <!-- Script -->
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+
+  <!-- تهيئة وربط Firebase -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnGuJslFBMrEJeDtG8Xx6n18fGbmyh6QaU",
+      authDomain: "smartwait-78f45.firebaseapp.com",
+      projectId: "smartwait-78f45",
+      storageBucket: "smartwait-78f45.appspot.com",
+      messagingSenderId: "729531488891",
+      appId: "1:729531488891:web:c51fdfd03bad6d2fad6d0e",
+      measurementId: "G-IZR8JFZJ98"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function sendContactForm() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const subject = document.getElementById("subject").value;
+      const message = document.getElementById("message").value;
+
+      db.collection("contacts").add({
+        name: name,
+        phone: phone,
+        subject: subject,
+        message: message,
+        createdAt: new Date()
+      })
+      .then(() => {
+        alert("✅ تم إرسال رسالتك بنجاح!");
+        document.querySelector("form").reset();
+      })
+      .catch((error) => {
+        alert("❌ حدث خطأ أثناء الإرسال: " + error.message);
+      });
+    }
+  </script>
+
+  <!-- Toggle Menu -->
   <script>
     function toggleMenu() {
       const nav = document.getElementById("nav-menu");
       nav.classList.toggle("active");
     }
   </script>
+
 </body>
 </html>
