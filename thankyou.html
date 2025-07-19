@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تم الإرسال</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: url('mg4.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(to left, #6a0dad, #87CEFA);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav a {
+      color: rgb(223, 206, 244);
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
+    }
+
+    .burger {
+      display: none;
+      font-size: 28px;
+      color: rgba(202, 223, 252, 0.9);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: rgba(106, 13, 173, 0.95);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav.active {
+        display: flex;
+      }
+
+      .burger {
+        display: block;
+      }
+    }
+
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 100px;
+      padding-bottom: 40px;
+    }
+
+    .box {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      max-width: 500px;
+    }
+
+    .box h1 {
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .box p {
+      font-size: 18px;
+    }
+
+    .box a {
+      display: inline-block;
+      margin-top: 25px;
+      color: #fff;
+      background-color: #6a0dad;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .box a:hover {
+      background-color: #5c0aa3;
+    }
+
+    footer {
+      background: linear-gradient(to left, #6a0dad, #87CEFA);
+      color: rgba(218, 203, 237, 0.8);
+      text-align: center;
+      padding: 20px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">الانتظار الذكي</div>
+    <button class="burger" onclick="toggleMenu()">☰</button>
+    <nav class="nav" id="nav-menu">
+      <a href="index.html">الرئيسية</a>
+      <a href="appointments.html">المواعيد</a>
+      <a href="register.html">التسجيل</a>
+      <a href="status.html">حالة الانتظار</a>
+      <a href="contact.html">تواصل معنا</a>
+    </nav>
+  </header>
+
+  <div class="main-content">
+    <div class="box">
+      <h1>✅ شكراً لتواصلك معنا!</h1>
+      <p>تم إرسال رسالتك بنجاح، وسنقوم بالرد عليك قريباً.</p>
+      <a href="index.html">العودة للرئيسية</a>
+    </div>
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة &copy; 2025 - الانتظار الذكي
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("nav-menu").classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>

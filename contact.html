@@ -5,8 +5,53 @@
   <title>تواصل معنا</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // استيراد مكتبات Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // إعداد Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnJGsLfBMrEJeDtG8Xx6n18fGbmyh6QaU",
+      authDomain: "smartwait-78f45.firebaseapp.com",
+      projectId: "smartwait-78f45",
+      storageBucket: "smartwait-78f45.appspot.com",
+      messagingSenderId: "729531488891",
+      appId: "1:729531488891:web:c51dffd03bad6d2fad60de",
+      measurementId: "G-TZR8JFZJ98"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // دالة إرسال النموذج
+    window.sendContactForm = async function () {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const subject = document.getElementById("subject").value;
+      const message = document.getElementById("message").value;
+
+      try {
+        await addDoc(collection(db, "messages"), {
+          name,
+          phone,
+          subject,
+          message,
+          createdAt: new Date()
+        });
+
+        // الانتقال إلى صفحة الشكر
+        window.location.href = "thankyou.html";
+      } catch (error) {
+        const resultBox = document.getElementById("result");
+        resultBox.className = "message-box error";
+        resultBox.innerText = "❌ حدث خطأ أثناء الإرسال: " + error.message;
+        resultBox.style.display = "block";
+      }
+    };
+  </script>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,7 +77,7 @@
     form {
       max-width: 500px;
       margin: auto;
-      background: rgba(210, 211, 242, 0.526);
+      background: rgba(210, 211, 242, 0.6);
       padding: 25px;
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
@@ -189,46 +234,6 @@
   </footer>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBnJGsLfBMrEJeDtG8Xx6n18fGbmyh6QaU",
-      authDomain: "smartwait-78f45.firebaseapp.com",
-      projectId: "smartwait-78f45",
-      storageBucket: "smartwait-78f45.appspot.com",
-      messagingSenderId: "729531488891",
-      appId: "1:729531488891:web:c51dffd03bad6d2fad60de",
-      measurementId: "G-TZR8JFZJ98"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    function sendContactForm() {
-      const name = document.getElementById("name").value;
-      const phone = document.getElementById("phone").value;
-      const subject = document.getElementById("subject").value;
-      const message = document.getElementById("message").value;
-      const resultBox = document.getElementById("result");
-
-      db.collection("messages").add({
-        name: name,
-        phone: phone,
-        subject: subject,
-        message: message,
-        createdAt: new Date()
-      })
-      .then(() => {
-        resultBox.className = "message-box success";
-        resultBox.innerText = "✅ تم إرسال رسالتك بنجاح!";
-        resultBox.style.display = "block";
-        document.querySelector("form").reset();
-      })
-      .catch((error) => {
-        resultBox.className = "message-box error";
-        resultBox.innerText = "❌ حدث خطأ أثناء الإرسال: " + error.message;
-        resultBox.style.display = "block";
-      });
-    }
-
     function toggleMenu() {
       document.getElementById("nav-menu").classList.toggle("active");
     }
