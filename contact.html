@@ -5,9 +5,10 @@
   <title>تواصل معنا</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
 
   <style>
-    /* التنسيقات كما هي بدون تغيير كبير */
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -24,7 +25,7 @@
     h2 {
       text-align: center;
       margin-bottom: 30px;
-      color: hsla(227, 29%, 94%, 0.971);
+      color: #f2f3f9;
       font-weight: 700;
     }
 
@@ -119,7 +120,7 @@
 
     footer {
       background: linear-gradient(to left, #6a0dad, #87CEFA);
-      color: rgba(218, 203, 237, 0.474);
+      color: rgba(218, 203, 237, 0.8);
       text-align: center;
       padding: 20px;
       margin-top: 60px;
@@ -130,7 +131,6 @@
 
 <body>
 
-  <!-- Header -->
   <header>
     <div class="logo">الانتظار الذكي</div>
     <button class="burger" onclick="toggleMenu()">☰</button>
@@ -143,11 +143,9 @@
     </nav>
   </header>
 
-  <!-- Content -->
   <div class="content">
     <h2>نموذج التواصل</h2>
 
-    <!-- 🟢 النموذج الجديد المرتبط بـ Firebase -->
     <form onsubmit="event.preventDefault(); sendContactForm();">
       <label>الاسم الكامل:</label>
       <input type="text" id="name" placeholder="اكتب اسمك" required>
@@ -165,28 +163,23 @@
     </form>
   </div>
 
-  <!-- Footer -->
   <footer>
     جميع الحقوق محفوظة &copy; 2025 - الانتظار الذكي
   </footer>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
-
-  <!-- تهيئة وربط Firebase -->
+  <!-- Firebase تهيئة -->
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyBnGuJslFBMrEJeDtG8Xx6n18fGbmyh6QaU",
+      apiKey: "AIzaSyBnJGsLfBMrEJeDtG8Xx6n18fGbmyh6QaU",
       authDomain: "smartwait-78f45.firebaseapp.com",
       projectId: "smartwait-78f45",
       storageBucket: "smartwait-78f45.appspot.com",
       messagingSenderId: "729531488891",
-      appId: "1:729531488891:web:c51fdfd03bad6d2fad6d0e",
-      measurementId: "G-IZR8JFZJ98"
+      appId: "1:729531488891:web:c51dffd03bad6d2fad60de",
+      measurementId: "G-TZR8JFZJ98"
     };
 
-    const app = firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
     function sendContactForm() {
@@ -210,10 +203,7 @@
         alert("❌ حدث خطأ أثناء الإرسال: " + error.message);
       });
     }
-  </script>
 
-  <!-- Toggle Menu -->
-  <script>
     function toggleMenu() {
       const nav = document.getElementById("nav-menu");
       nav.classList.toggle("active");
